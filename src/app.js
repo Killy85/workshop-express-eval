@@ -17,7 +17,11 @@ app.get('/bingo', function(req, res) {
         res.end('The bingo game is already started and known numbers are '+ number);
       }else{
         input = input.split(',')
-        if(input.sort().join(',') === number.sort().join(',')){
+        var bingo = input.length == number.length;
+        input.forEach((i)=>{
+          bingo = bingo && number.includes(i)
+        })
+        if(bingo){
           res.send('Bingo')
         }else{
           res.send('The bingo game is already started, sorry your numbers doesn\'t match with known numbers '+ number +' ; so you can not say Bingo')
